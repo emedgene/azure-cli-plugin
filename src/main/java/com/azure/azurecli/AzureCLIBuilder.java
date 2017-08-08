@@ -78,6 +78,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
                 for (String token
                         :
                         tokens) {
+
                     String varValue = Utils.getEnvVar(build.getEnvironment(listener), token);
                     if (varValue == null || varValue == "") {
                         listener.error("Variable " + token + " is empty or null");
@@ -87,6 +88,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
                     replacements.put(token, varValue);
                 }
                 String commandText = Utils.tokenizeText(command.script, replacements);
+                listener.getLogger().println("Running: " + commandText);
                 ExitResult azResult = shellExecuter.executeAZ(commandText);
                 if (azResult.code != 0) {
                     listener.error(azResult.output);
@@ -130,7 +132,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
             ShellExecuter executer = new ShellExecuter();
             String output = executer.getVersion().output;
             String[] result = output.split(System.lineSeparator(), 2);
-            return "Azure CLI: " + result[0];
+            return result[0];
         }
 
         @Override

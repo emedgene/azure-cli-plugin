@@ -17,7 +17,7 @@ public class Utils {
         Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
-            tokens.add(matcher.group(0));
+            tokens.add(matcher.group(0).replaceAll("\\{", "").replaceAll("}", ""));
         }
         return tokens;
     }
@@ -44,7 +44,7 @@ public class Utils {
 
     public static String getEnvVar(EnvVars envVars, String var) {
         String env = System.getenv(var);
-        if (envVars != null && env == null || env == "") {
+        if (envVars != null && (env == null || env == "")) {
             env = envVars.get(var);
         }
         return env;
