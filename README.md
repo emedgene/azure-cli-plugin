@@ -1,6 +1,6 @@
 # Azure CLI Jenkins Plugin
 
-A Jenkins plugin to use command-line for managing Azure resources.
+A Jenkins plugin to use Azure CLI for managing Azure resources.
 
 ## How to Install
 
