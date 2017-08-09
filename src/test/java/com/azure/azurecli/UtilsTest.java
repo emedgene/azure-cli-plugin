@@ -45,7 +45,7 @@ public class UtilsTest {
     @Test
     public void getEnvVar() throws Exception {
 
-        String envvar = "JOB_NAME";
+        String envvar = "NAME";
         String var = Utils.getEnvVar(null, envvar);
         Assert.assertNotNull(var);
         Assert.assertEquals(var, VMName);
