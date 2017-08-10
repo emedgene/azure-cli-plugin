@@ -22,7 +22,7 @@ public class Command extends AbstractDescribableImpl<Command> {
     @Extension
     public static class DescriptorImpl extends Descriptor<Command> {
         public String getDisplayName() {
-            return "test";
+            return "Command";
         }
     }
 }

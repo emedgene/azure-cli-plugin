@@ -1,24 +1,64 @@
 package com.azure.azurecli;
 
+import com.azure.azurecli.exceptions.AzureCloudException;
+import com.azure.azurecli.exceptions.AzureCredentialsValidationException;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 public class ShellExecuter {
 
-    public ExitResult login(String id, String secret, String tenantId) {
-        String command = "az login --service-principal -u " + id + " -p " + secret + " --tenant " + tenantId;
-        return executeAZ(command);
+    public PrintStream logger;
+
+    public ShellExecuter(PrintStream logger) {
+        this.logger = logger;
     }
 
-    public ExitResult getVersion() {
+    public ShellExecuter() {
+
+    }
+
+    public void login(CredentialsCache credentialsCache) throws AzureCredentialsValidationException {
+        String command = "az login --service-principal -u " + credentialsCache.clientId + " -p " + credentialsCache.clientSecret + " --tenant " + credentialsCache.tenantId;
+        try {
+            executeAZ(command);
+            command = "az account set -s " + credentialsCache.subscriptionId;
+            executeAZ(command);
+        } catch (AzureCloudException e) {
+            throw new AzureCredentialsValidationException(e.getMessage());
+        }
+    }
+
+    public String getVersion() throws AzureCloudException {
         String command = "az --version";
-        return executeAZ(command);
+        ExitResult result = executeCommand(command);
+        if (result.code == 0) {
+            return result.output;
+        }
+        throw AzureCloudException.create("Azure CLI not found");
     }
 
-    public ExitResult executeAZ(String command) {
-        return executeCommand(command);
+    public void executeAZ(String command) throws AzureCloudException {
+        logger.println("Running: " + command);
+        ExitResult result = executeCommand(command);
+        if (result.code == 0) {
+            logger.println(result.output);
+            return;
+        }
+        throw AzureCloudException.create(result.output);
 
+    }
+
+    private class ExitResult {
+        public String output;
+        public int code;
+
+        ExitResult(String output, int code) {
+            this.output = output;
+            this.code = code;
+        }
     }
 
     private ExitResult executeCommand(String command) {

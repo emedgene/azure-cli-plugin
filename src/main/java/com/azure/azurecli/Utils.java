@@ -34,7 +34,7 @@ public class Utils {
             if (replacement == null) {
                 builder.append(matcher.group(0));
             } else {
-                builder.append('"' + replacement + '"');
+                builder.append(replacement);
             }
             i = matcher.end();
         }

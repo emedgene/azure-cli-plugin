@@ -39,7 +39,7 @@ public class UtilsTest {
         String command = "az vm create {NAME}";
 
         String tokenized = Utils.tokenizeText(command, replacements);
-        Assert.assertEquals(tokenized, "az vm create \"" + VMName + '"');
+        Assert.assertEquals(tokenized, "az vm create " + VMName);
     }
 
     @Test

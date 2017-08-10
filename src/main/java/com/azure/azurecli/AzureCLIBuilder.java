@@ -1,5 +1,6 @@
 package com.azure.azurecli;
 
+import com.azure.azurecli.exceptions.AzureCloudException;
 import com.cloudbees.plugins.credentials.CredentialsProvider;
 import com.cloudbees.plugins.credentials.common.StandardListBoxModel;
 import com.cloudbees.plugins.credentials.domains.DomainRequirement;
@@ -64,11 +65,11 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
     public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener) throws IOException, InterruptedException {
 
         AzureCredentials.ServicePrincipal servicePrincipal = AzureCredentials.getServicePrincipal(principalCredentialId);
+        CredentialsCache credentialsCache = new CredentialsCache(servicePrincipal);
+        ShellExecuter shellExecuter = new ShellExecuter(listener.getLogger());
 
-        ShellExecuter shellExecuter = new ShellExecuter();
-        ExitResult loginResult = shellExecuter.login(servicePrincipal.getClientId(), servicePrincipal.getClientSecret(), servicePrincipal.getTenant());
-        if (loginResult.code == 0) {
-            listener.getLogger().println(loginResult.code + " " + loginResult.output);
+        try {
+            shellExecuter.login(credentialsCache);
             for (Command command
                     :
                     commands) {
@@ -81,29 +82,18 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
 
                     String varValue = Utils.getEnvVar(build.getEnvironment(listener), token);
                     if (varValue == null || varValue == "") {
-                        listener.error("Variable " + token + " is empty or null");
-                        build.setResult(Result.FAILURE);
-                        return;
+                        throw AzureCloudException.create("Variable " + token + " is empty or null");
                     }
                     replacements.put(token, varValue);
                 }
                 String commandText = Utils.tokenizeText(command.script, replacements);
-                listener.getLogger().println("Running: " + commandText);
-                ExitResult azResult = shellExecuter.executeAZ(commandText);
-                if (azResult.code != 0) {
-                    listener.error(azResult.output);
-                    build.setResult(Result.FAILURE);
-                    break;
-                } else {
-                    listener.getLogger().println(azResult.output);
-                }
+                shellExecuter.executeAZ(commandText);
+
             }
-        } else {
-            listener.fatalError(loginResult.output);
+        } catch (Exception e) {
+            listener.getLogger().println(e.getMessage());
             build.setResult(Result.FAILURE);
-
         }
-
     }
 
 
@@ -130,7 +120,12 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
 
         public String getDisplayName() {
             ShellExecuter executer = new ShellExecuter();
-            String output = executer.getVersion().output;
+            String output = null;
+            try {
+                output = executer.getVersion();
+            } catch (AzureCloudException e) {
+                return e.getMessage();
+            }
             String[] result = output.split(System.lineSeparator(), 2);
             return result[0];
         }
