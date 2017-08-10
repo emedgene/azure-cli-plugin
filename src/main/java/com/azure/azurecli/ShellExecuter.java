@@ -20,7 +20,7 @@ public class ShellExecuter {
 
     }
 
-    public void login(CredentialsCache credentialsCache) throws AzureCredentialsValidationException {
+    public void login(com.azure.azurecli.CredentialsCache credentialsCache) throws AzureCredentialsValidationException {
         String command = "az login --service-principal -u " + credentialsCache.clientId + " -p " + credentialsCache.clientSecret + " --tenant " + credentialsCache.tenantId;
         try {
             executeAZ(command);
@@ -40,12 +40,12 @@ public class ShellExecuter {
         throw AzureCloudException.create("Azure CLI not found");
     }
 
-    public void executeAZ(String command) throws AzureCloudException {
+    public String executeAZ(String command) throws AzureCloudException {
         logger.println("Running: " + command);
         ExitResult result = executeCommand(command);
         if (result.code == 0) {
             logger.println(result.output);
-            return;
+            return result.output;
         }
         throw AzureCloudException.create(result.output);
 

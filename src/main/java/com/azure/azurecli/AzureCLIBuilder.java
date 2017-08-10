@@ -46,7 +46,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
         for (String command
                 :
                 strCommands) {
-            commands.add(new Command(command));
+            commands.add(new Command(command, ""));
         }
         this.commands = commands;
         this.principalCredentialId = principalCredentialId;
@@ -65,7 +65,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
     public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener) throws IOException, InterruptedException {
 
         AzureCredentials.ServicePrincipal servicePrincipal = AzureCredentials.getServicePrincipal(principalCredentialId);
-        CredentialsCache credentialsCache = new CredentialsCache(servicePrincipal);
+        com.azure.azurecli.CredentialsCache credentialsCache = new com.azure.azurecli.CredentialsCache(servicePrincipal);
         ShellExecuter shellExecuter = new ShellExecuter(listener.getLogger());
 
         try {
@@ -74,20 +74,23 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
                     :
                     commands) {
 
-                List<String> tokens = Utils.extractTokens(command.script);
+                List<String> tokens = com.azure.azurecli.Utils.extractTokens(command.getScript());
                 HashMap<String, String> replacements = new HashMap<>();
                 for (String token
                         :
                         tokens) {
 
-                    String varValue = Utils.getEnvVar(build.getEnvironment(listener), token);
+                    String varValue = com.azure.azurecli.Utils.getEnvVar(build.getEnvironment(listener), token);
                     if (varValue == null || varValue == "") {
                         throw AzureCloudException.create("Variable " + token + " is empty or null");
                     }
                     replacements.put(token, varValue);
                 }
-                String commandText = Utils.tokenizeText(command.script, replacements);
-                shellExecuter.executeAZ(commandText);
+                String commandText = com.azure.azurecli.Utils.tokenizeText(command.getScript(), replacements);
+                String output = shellExecuter.executeAZ(commandText);
+
+
+                command.parseExportedVariables(build, output);
 
             }
         } catch (Exception e) {
