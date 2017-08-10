@@ -1,6 +1,6 @@
 # Azure CLI Jenkins Plugin
 
-A Jenkins plugin to use command-line for managing Azure resources.
+A Jenkins plugin to use Azure CLI for managing Azure resources.
 
 ## How to Install
 
@@ -28,6 +28,12 @@ To use this plugin to deploy to Azure Web App, first you need to have an Azure S
 2. Open Jenkins dashboard, go to Credentials, add a new Microsoft Azure Service Principal with the credential information you just created.
 3. Install [Azure CLI](https://docs.microsoft.com/en-US/cli/azure/install-azure-cli) in the Jenkins Host
 
+## How to use
+
+1. Select Azure CLI Plugin in the Build Steps.
+2. Select the Azure Service Principal
+3. Type a command such as ```az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20```
+4. You can also use environment variables: ```az vm create -n {VM_NAME} -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20 ```
 
 ## Deploy using Pipeline
 
