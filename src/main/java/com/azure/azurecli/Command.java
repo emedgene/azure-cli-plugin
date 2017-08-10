@@ -10,6 +10,7 @@ import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,12 +25,15 @@ public class Command extends AbstractDescribableImpl<Command> {
         this.exportVariablesString = exportVariablesString;
     }
 
-    public void parseExportedVariables(Run<?, ?> build, String output) throws IOException {
+    public void parseExportedVariables(PrintStream logger, Run<?, ?> build, String output) throws IOException {
 
-        if (exportVariablesString == null || exportVariablesString == "") {
+        if (exportVariablesString == null) {
             return;
         }
-
+        if (exportVariablesString.trim() == "") {
+            return;
+        }
+        logger.println("Transforming to environment variables: " + exportVariablesString);
         HashMap<String, String> exportVariablesNames = com.azure.azurecli.Utils.parseExportedVariables(exportVariablesString);
         HashMap<String, String> exportVariables = new HashMap<>();
 

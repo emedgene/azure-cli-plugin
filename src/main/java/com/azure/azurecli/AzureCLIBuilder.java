@@ -88,13 +88,11 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
                 }
                 String commandText = com.azure.azurecli.Utils.tokenizeText(command.getScript(), replacements);
                 String output = shellExecuter.executeAZ(commandText);
-
-
-                command.parseExportedVariables(build, output);
+                command.parseExportedVariables(listener.getLogger(), build, output);
 
             }
         } catch (Exception e) {
-            listener.getLogger().println(e.getMessage());
+            listener.getLogger().println("Failure: " + e.getMessage());
             build.setResult(Result.FAILURE);
         }
     }
