@@ -35,6 +35,30 @@ To use this plugin to deploy to Azure Web App, first you need to have an Azure S
 3. Type a command such as ```az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20```
 4. You can also use environment variables: ```az vm create -n {VM_NAME} -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20 ```
 
+### Export output as environment variables
+
+The CLI command output is JSON based:
+
+Output:
+
+  ```
+      {
+         "id": "/subscriptions/some-guid/resourceGroups/test",
+         "location": "northeurope",
+         "managedBy": null,
+         "name": "test",
+         "properties": {
+            "provisioningState": "Succeeded"
+         },
+         "tags": null
+      }
+  ```
+  
+  If you want to export a property to an environment variable that you can use in other build steps, define the parameters in the "advanced" section:
+  1. `/location|LOCATION` The location is the path in the JSON and the LOCATION is the environment variable that will be created. 
+  2. Nested property: `/properties/provisioningState|STATE`
+  3. Multiple environment variables: `/location|LOCATION , /properties/provisioningState|STATE`
+
 ## Deploy using Pipeline
 
 You can also use this plugin with using the Jobs DSL. For example:
