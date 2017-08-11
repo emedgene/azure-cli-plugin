@@ -55,9 +55,9 @@ Output:
   ```
   
   If you want to export a property to an environment variable that you can use in other build steps, define the parameters in the "advanced" section:
-  1. `/location|LOCATION` The location is the path in the JSON and the LOCATION is the environment variable that will be created. 
+  1. `/location|CURRENT_LOCATION` The '/location' is the path in the JSON and the 'CURRENT_LOCATION' is the environment variable that will be created. 
   2. Nested property: `/properties/provisioningState|STATE`
-  3. Multiple environment variables: `/location|LOCATION , /properties/provisioningState|STATE`
+  3. Multiple environment variables: `/location|CURRENT_LOCATION , /properties/provisioningState|STATE`
 
 ## Deploy using Pipeline
 
