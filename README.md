@@ -4,7 +4,7 @@ A Jenkins plugin to use Azure CLI for managing Azure resources.
 
 ## How to Install
 
-You can install/update this plugin in Jenkins update center (Manage Jenkins -> Manage Plugins, search Azure App Service Plugin).
+You can install/update this plugin in Jenkins update center (Manage Jenkins -> Manage Plugins, search Azure CLI Plugin).
 
 You can also manually install the plugin if you want to try the latest feature before it's officially released.
 To manually install the plugin:
