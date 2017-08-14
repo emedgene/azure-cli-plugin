@@ -27,7 +27,7 @@
 
     <name>Azure CLI Plugin</name>
     <description>A Jenkins plugin to execute Azure CLI commands</description>
-
+    <url>https://wiki.jenkins.io/display/JENKINS/Azure+CLI+Plugin</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -42,13 +42,11 @@
             <email>torosent@microsoft.com</email>
         </developer>
     </developers>
-    <!-- Assuming you want to host on @jenkinsci:
     <scm>
       <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
       <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
       <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
     </scm>
-     -->
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
