@@ -81,7 +81,7 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
                         tokens) {
 
                     String varValue = com.azure.azurecli.Utils.getEnvVar(build.getEnvironment(listener), token);
-                    if (varValue == null || varValue == "") {
+                    if (varValue == null || varValue.equals("")) {
                         throw AzureCloudException.create("Variable " + token + " is empty or null");
                     }
                     replacements.put(token, varValue);

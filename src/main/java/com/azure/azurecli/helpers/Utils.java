@@ -46,7 +46,7 @@ public class Utils {
 
     public static String getEnvVar(EnvVars envVars, String var) {
         String env = System.getenv(var);
-        if (envVars != null && (env == null || env == "")) {
+        if (envVars != null && (env == null || env.equals(""))) {
             env = envVars.get(var);
         }
         return env;

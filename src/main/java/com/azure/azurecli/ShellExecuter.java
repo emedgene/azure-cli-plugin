@@ -51,7 +51,7 @@ public class ShellExecuter {
 
     }
 
-    private class ExitResult {
+    private static class ExitResult {
         public String output;
         public int code;
 
@@ -79,13 +79,14 @@ public class ShellExecuter {
                 stream = p.getInputStream();
             }
             BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(stream));
+                    new BufferedReader(new InputStreamReader(stream, "utf-8"));
 
             String line = "";
             while ((line = reader.readLine()) != null) {
                 output.append(line + "\n");
             }
             exitCode = p.exitValue();
+            reader.close();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -30,7 +30,7 @@ public class Command extends AbstractDescribableImpl<Command> {
         if (exportVariablesString == null) {
             return;
         }
-        if (exportVariablesString.trim() == "") {
+        if (exportVariablesString.trim().equals("")) {
             return;
         }
         logger.println("Transforming to environment variables: " + exportVariablesString);
