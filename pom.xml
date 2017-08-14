@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.azure</groupId>
     <artifactId>azure-cli</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>hpi</packaging>
 
     <properties>
