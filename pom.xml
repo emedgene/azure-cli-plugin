@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>azure-cli</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>hpi</packaging>
 
     <properties>
@@ -45,7 +45,7 @@
         <connection>scm:git:git://github.com:jenkinsci/azure-cli-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/azure-cli-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/azure-cli-plugin</url>
-    <tag>azure-cli-0.1</tag>
+    <tag>azure-cli-0.2</tag>
   </scm>
     <repositories>
         <repository>
