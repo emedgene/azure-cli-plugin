@@ -69,7 +69,7 @@ To create a linux VM using the CLI:
 job('AzCommand') {
   steps {
         azCommands('servicePrincipalId', 
-                        ['az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20'])
+                        ['az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20 && /location|CURRENT_LOCATION'])
     }
 }
 ```

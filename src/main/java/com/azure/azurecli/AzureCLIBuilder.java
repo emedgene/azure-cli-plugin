@@ -46,7 +46,8 @@ public class AzureCLIBuilder extends Builder implements SimpleBuildStep {
         for (String command
                 :
                 strCommands) {
-            commands.add(new Command(command, ""));
+            String[] cmdAndOutput = command.split("&&");
+            commands.add(new Command(cmdAndOutput[0].trim(), cmdAndOutput[1].trim()));
         }
         this.commands = commands;
         this.principalCredentialId = principalCredentialId;
