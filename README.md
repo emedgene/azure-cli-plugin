@@ -59,7 +59,7 @@ Output:
   2. Nested property: `/properties/provisioningState|STATE`
   3. Multiple environment variables: `/location|CURRENT_LOCATION , /properties/provisioningState|STATE`
 
-## Deploy using JOB DSL
+## Deploy using Job DSL
 
 You can also use this plugin with using the Jobs DSL. For example:
 
