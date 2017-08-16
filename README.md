@@ -22,7 +22,7 @@ To manually install the plugin:
 
 ### Prerequisites
 
-To use this plugin to deploy to Azure Web App, first you need to have an Azure Service Principal in your Jenkins instance.
+To use this plugin, first you need to have an Azure Service Principal in your Jenkins instance.
 
 1. Create an Azure Service Principal through [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?toc=%2fazure%2fazure-resource-manager%2ftoc.json) or [Azure portal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal).
 2. Open Jenkins dashboard, go to Credentials, add a new Microsoft Azure Service Principal with the credential information you just created.
