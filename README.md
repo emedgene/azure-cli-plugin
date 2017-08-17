@@ -41,23 +41,27 @@ The CLI command output is JSON based:
 
 Output:
 
-  ```
-      {
-         "id": "/subscriptions/some-guid/resourceGroups/test",
+  ```javascript
+     {
+         "fqdns": "",
+         "id": "/subscriptions/some-guid/resourceGroups/MyResourceGroup/providers/Microsoft.Compute/virtualMachines/MyLinuxVM",
          "location": "northeurope",
-         "managedBy": null,
-         "name": "test",
+         "macAddress": "00-0D-AA-AA-AA-AA",
+         "powerState": "VM running",
+         "privateIpAddress": "10.0.0.4",
+         "publicIpAddress": "52.178.0.0",
          "properties": {
             "provisioningState": "Succeeded"
          },
-         "tags": null
-      }
+         "resourceGroup": "MyResourceGroup"
+}
+
   ```
   
   If you want to export a property to an environment variable that you can use in other build steps, define the parameters in the "advanced" section:
-  1. `/location|CURRENT_LOCATION` The '/location' is the path in the JSON and the 'CURRENT_LOCATION' is the environment variable that will be created. 
+  1. `/publicIpAddress|PUBLIC_IP` The '/location' is the path in the JSON and the 'CURRENT_LOCATION' is the environment variable that will be created. 
   2. Nested property: `/properties/provisioningState|STATE`
-  3. Multiple environment variables: `/location|CURRENT_LOCATION , /properties/provisioningState|STATE`
+  3. Multiple environment variables: `/publicIpAddress|PUBLIC_IP , /properties/provisioningState|STATE`
 
 ## Deploy using Job DSL
 
@@ -69,7 +73,7 @@ To create a linux VM using the CLI:
 job('AzCommand') {
   steps {
         azCommands('servicePrincipalId', 
-                        ['az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20 && /location|CURRENT_LOCATION'])
+                        ['az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20 && /publicIpAddress|PUBLIC_IP'])
     }
 }
 ```
