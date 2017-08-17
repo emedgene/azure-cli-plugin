@@ -59,7 +59,7 @@ Output:
   ```
   
   If you want to export a property to an environment variable that you can use in other build steps, define the parameters in the "advanced" section:
-  1. `/publicIpAddress|PUBLIC_IP` The '/location' is the path in the JSON and the 'CURRENT_LOCATION' is the environment variable that will be created. 
+  1. `/publicIpAddress|PUBLIC_IP` The '/publicIpAddress' is the path in the JSON and the 'PUBLIC_IP' is the environment variable that will be created. 
   2. Nested property: `/properties/provisioningState|STATE`
   3. Multiple environment variables: `/publicIpAddress|PUBLIC_IP , /properties/provisioningState|STATE`
 
