@@ -20,7 +20,6 @@
         <powermock.version>1.7.0RC2</powermock.version>
         <azure-credentials>1.2</azure-credentials>
         <credentials>2.1.5</credentials>
-        <plain-credentials>1.4</plain-credentials>
         <job-dsl>1.64</job-dsl>
     </properties>
 
@@ -73,11 +72,6 @@
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>credentials</artifactId>
             <version>${credentials}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins</groupId>
-            <artifactId>plain-credentials</artifactId>
-            <version>${plain-credentials}</version>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
