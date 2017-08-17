@@ -63,6 +63,18 @@ Output:
   2. Nested property: `/properties/provisioningState|STATE`
   3. Multiple environment variables: `/publicIpAddress|PUBLIC_IP , /properties/provisioningState|STATE`
 
+## Deploy using Pipeline
+
+You can also use this plugin in pipeline (Jenkinsfile). Here are some samples to use the plugin in pipeline script:
+
+To create a new resource group and provision a new VM:
+
+```groovy
+azureCLI commands: [[exportVariablesString: '', script: 'az group create -n MyResourceGroup --location northeurope'], [exportVariablesString: '/publicIpAddress|PUBLIC_IP', script: 'az vm create -n MyLinuxVM -g MyResourceGroup --image UbuntuLTS --data-disk-sizes-gb 10 20']], principalCredentialId: '<credential_id>'
+```
+
+For advanced options, you can use Jenkins Pipeline Syntax tool to generate a sample script.
+
 ## Deploy using Job DSL
 
 You can also use this plugin with using the Jobs DSL. For example:
