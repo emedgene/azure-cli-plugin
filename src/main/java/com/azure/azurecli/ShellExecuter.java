@@ -25,7 +25,7 @@ public class ShellExecuter {
 
     }
 
-    public void login(com.azure.azurecli.CredentialsCache credentialsCache) throws AzureCredentialsValidationException {
+    public void login(com.azure.azurecli.helpers.CredentialsCache credentialsCache) throws AzureCredentialsValidationException {
         String command = "az login --service-principal -u " + credentialsCache.clientId + " -p " + credentialsCache.clientSecret + " --tenant " + credentialsCache.tenantId;
         try {
             executeAZ(command);

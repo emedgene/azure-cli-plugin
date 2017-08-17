@@ -3,7 +3,7 @@
  * Licensed under the MIT License. See License.txt in the project root for
  * license information.
  */
-package com.azure.azurecli;
+package com.azure.azurecli.helpers;
 
 import com.microsoft.azure.util.AzureCredentials;
 

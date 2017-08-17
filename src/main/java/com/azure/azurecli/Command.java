@@ -39,7 +39,7 @@ public class Command extends AbstractDescribableImpl<Command> {
             return;
         }
         logger.println("Transforming to environment variables: " + exportVariablesString);
-        HashMap<String, String> exportVariablesNames = com.azure.azurecli.Utils.parseExportedVariables(exportVariablesString);
+        HashMap<String, String> exportVariablesNames = com.azure.azurecli.helpers.Utils.parseExportedVariables(exportVariablesString);
         HashMap<String, String> exportVariables = new HashMap<>();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -53,7 +53,7 @@ public class Command extends AbstractDescribableImpl<Command> {
             String value = rootNode.at(var.getKey()).asText();
             exportVariables.put(var.getValue(), value);
         }
-        com.azure.azurecli.Utils.setEnvironmentVariables(build, exportVariables);
+        com.azure.azurecli.helpers.Utils.setEnvironmentVariables(build, exportVariables);
     }
 
     public String getScript() {

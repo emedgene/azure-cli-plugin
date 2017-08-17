@@ -4,7 +4,7 @@
  * license information.
  */
 
-package com.azure.azurecli;
+package com.azure.azurecli.helpers;
 
 import hudson.EnvVars;
 import hudson.model.AbstractBuild;
